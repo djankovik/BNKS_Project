@@ -65,6 +65,7 @@ public class ReqUtils {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         byte[] hash = digest.digest(plainText.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64.getEncoder().encodeToString(hash);
         return encoded;
