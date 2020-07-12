@@ -3,3 +3,32 @@
 GET http://localhost:8080/api/simplekey/dummy
 
 ###
+
+GET http://localhost:8080/api/welcome
+
+###
+
+POST http://localhost:8080/api/welcome/post
+
+###
+
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{"username":"johnny","password":"cats1234"}
+
+###
+
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{"username":"anne","password":"doge"}
+
+###
+
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{"username":"anne","password":"doge"}
+
+###

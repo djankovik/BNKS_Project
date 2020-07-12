@@ -1,4 +1,4 @@
-package mk.ukim.finki.bnks_project.service.utilities;
+package mk.ukim.finki.bnks_project.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class ReqUtils {
         return map;
     }
 
-    public static String getHashForText(String plainText){
+    private static String getHashForText(String plainText){
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");

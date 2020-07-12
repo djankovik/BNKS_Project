@@ -1,4 +1,4 @@
-package mk.ukim.finki.bnks_project.service.utilities;
+package mk.ukim.finki.bnks_project.utils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
