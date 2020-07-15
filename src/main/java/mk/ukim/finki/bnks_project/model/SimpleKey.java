@@ -4,20 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="SIMPLEKEYENTITIES")
+@Table(name="SIMPLEKEYS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@SequenceGenerator(name="seq", initialValue=100, allocationSize=1000)
 public class SimpleKey {
     @Id
-    private String keyId;
-    private String algorithm;
-    @Column(name = "shared_key",length=600)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+    private Long keyId;
+    @Column(name = "secret_key",length=600)
     private String key;
+    private String keyForUser;
+    public SimpleKey(String key,String user){
+        this.key = key;
+        this.keyForUser = user;
+    }
 }

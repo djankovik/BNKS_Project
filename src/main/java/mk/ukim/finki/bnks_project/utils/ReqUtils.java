@@ -32,7 +32,7 @@ public class ReqUtils {
         for(String header:Collections.list(request.getHeaderNames())){
             map.put(header,request.getHeader(header));
         }
-        map.put("method",request.getMethod().toLowerCase());
+        map.put("method",request.getMethod().toUpperCase());
         map.put("routepath",request.getRequestURI().substring(request.getContextPath().length()).toLowerCase());
         System.out.println(map.toString());
         return map;
@@ -84,5 +84,16 @@ public class ReqUtils {
         }
         String hashed = getHashForText(bodyPlainText);
         return request.getHeader("digest").compareTo(hashed.replace("SHA256=","")) == 0;
+    }
+
+    public static String recreateSignature(String algorithm,String method,String path,String timestamp, String body){
+        Map<String,String> map = new HashMap<>();
+        map.put("METHOD",method);map.put("TIMESTAMP",timestamp);map.put("PATH",path);map.put("BODY",body);
+        String[] parts = algorithm.split("\\+");
+        StringBuilder sb=new StringBuilder();
+        for(String part:parts){
+            sb.append(map.get(part));
+        }
+        return sb.toString();
     }
 }

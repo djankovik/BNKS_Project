@@ -1,6 +1,5 @@
 package mk.ukim.finki.bnks_project.web.rest;
 
-import mk.ukim.finki.bnks_project.service.VerificationService;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +10,15 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path = "/api/signedendpoint", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class SignedEndpointAPI {
 
-    private final VerificationService verificationService;
+//    private final VerificationService verificationService;
 
-    public SignedEndpointAPI(VerificationService verificationService) {
-        this.verificationService = verificationService;
-    }
+//    public SignedEndpointAPI(VerificationService verificationService) {
+//        this.verificationService = verificationService;
+//    }
 
     @GetMapping("/gettest")
     public @ResponseBody void getTest(HttpServletRequest request,
@@ -37,13 +37,11 @@ public class SignedEndpointAPI {
         }
     }
     @PostMapping("/posttest")
-    public boolean postTest(HttpServletRequest request,
+    public @ResponseBody void postTest(HttpServletRequest request,
                                              HttpServletResponse response) {
         System.out.println(request.getMethod());
         System.out.println(request.getRemoteHost());
         System.out.println(request.getServerName());
-        System.out.println(request.getDateHeader("If-Modified-Since"));
-        System.out.println(request.getDateHeader("If-Unmodified-Since"));
         System.out.println("HEADERS:");
         for(String header:Collections.list(request.getHeaderNames())){
             System.out.println("\t"+header+" : "+request.getHeader(header));
@@ -55,8 +53,6 @@ public class SignedEndpointAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return verificationService.verifyRequestSignature(request);
     }
 
 }
