@@ -55,7 +55,7 @@ public class DataHolder {
             bids.add(new Bid(8, 250.0));
             bids.add(new Bid(9, 50.0));
             bids.add(new Bid(10, 100.0));
-
+            bidRepository.saveAll(bids);
             auctionitems.add(new AuctionItem(1, "ProductA", 650.0));
             auctionitems.add(new AuctionItem(2, "ProductB", 120.0));
             auctionitems.add(new AuctionItem(3, "ProductC", 210.0));
@@ -68,24 +68,34 @@ public class DataHolder {
             auctionitems.add(new AuctionItem(10, "ProductJ", 5.0));
 
             bids.get(0).setAuctionItem(auctionitems.get(0));
+            auctionitems.get(0).addBid(bids.get(0));
             bids.get(0).setUser(users.get(0));
             bids.get(1).setAuctionItem(auctionitems.get(1));
+            auctionitems.get(1).addBid(bids.get(1));
             bids.get(1).setUser(users.get(2));
             bids.get(2).setAuctionItem(auctionitems.get(1));
+            auctionitems.get(1).addBid(bids.get(2));
             bids.get(2).setUser(users.get(0));
             bids.get(3).setAuctionItem(auctionitems.get(2));
+            auctionitems.get(2).addBid(bids.get(3));
             bids.get(3).setUser(users.get(2));
             bids.get(4).setAuctionItem(auctionitems.get(3));
+            auctionitems.get(3).addBid(bids.get(4));
             bids.get(4).setUser(users.get(0));
             bids.get(5).setAuctionItem(auctionitems.get(4));
+            auctionitems.get(4).addBid(bids.get(5));
             bids.get(5).setUser(users.get(0));
             bids.get(6).setAuctionItem(auctionitems.get(6));
+            auctionitems.get(6).addBid(bids.get(6));
             bids.get(6).setUser(users.get(2));
             bids.get(7).setAuctionItem(auctionitems.get(7));
+            auctionitems.get(7).addBid(bids.get(7));
             bids.get(7).setUser(users.get(1));
             bids.get(8).setAuctionItem(auctionitems.get(8));
+            auctionitems.get(8).addBid(bids.get(8));
             bids.get(8).setUser(users.get(1));
             bids.get(9).setAuctionItem(auctionitems.get(8));
+            auctionitems.get(8).addBid(bids.get(9));
             bids.get(9).setUser(users.get(1));
 
             System.out.println("USERS\n" + users.toString());

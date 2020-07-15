@@ -105,7 +105,7 @@ public class SignedAuctionAPI {
         //Is the bid you want to post valid -> deal with this on front end
         //Bid in body
         ObjectMapper mapper = new ObjectMapper();
-        String bodyBid = mapper.writeValueAsString(bid);
+        String bodyBid = mapper.writeValueAsString(bid).replace("value\":","value\":\"").replace("}","\"}");
         String method = request.getMethod().toUpperCase();
         String path = request.getRequestURI().substring(request.getContextPath().length());
         //Now validate signature
@@ -113,30 +113,25 @@ public class SignedAuctionAPI {
         String xAlgorithm = request.getHeader("x-algorithm");
         String xKeyID = request.getHeader("x-keyid");
         String xSignature = request.getHeader("x-signature");
-        String ss = request.getHeader("x-ss");
-        String sk = request.getHeader("x-sk");
 
         if(xTimestamp == null || xAlgorithm == null || xKeyID == null || xSignature == null){
             response.sendError(401,"The request doesn't contain all necessary signature headers");
         }
         String signatureString = ReqUtils.recreateSignature(xAlgorithm,method,path,xTimestamp,bodyBid);
-        System.out.println(signatureString.compareTo(ss) == 0);
-        System.out.println(signatureString);
-        System.out.println(ss);
+
         //get key from KDC
         String username = userService.getUsernameFromToken(token);
         try {
             String fetchedKeyFromKDC = KDC.getKey(Long.valueOf(xKeyID),username);
-            System.out.println(fetchedKeyFromKDC.compareTo(sk) == 0);
-            System.out.println(fetchedKeyFromKDC);
-            System.out.println(sk);
             //verify using key and signatur STring (compare if equal to xSignature
             boolean isSignatureVerified = VerificationUtils.verifyHMAC(xSignature,signatureString,fetchedKeyFromKDC);
             if(isSignatureVerified){
                 AuctionItem au = this.itemService.findById(bid.getAuction_id());
                 User u = this.userService.findUserById(bid.getUser_id());
                 Bid bidNew = new Bid(bid.getValue(),au,u);
-                return (this.bidService.saveBid(new Bid())).getBidDto();
+                this.bidService.saveBid(bidNew);
+                this.itemService.addBidToAuctionItem(au,bidNew);
+                return bidNew.getBidDto();
             }
             else{
                 response.sendError(401,"Signature wasn't verified");

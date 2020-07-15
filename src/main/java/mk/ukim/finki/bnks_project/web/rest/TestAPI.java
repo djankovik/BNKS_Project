@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(path = "/api/signedendpoint", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
-public class SignedEndpointAPI {
+public class TestAPI {
 
 //    private final VerificationService verificationService;
 

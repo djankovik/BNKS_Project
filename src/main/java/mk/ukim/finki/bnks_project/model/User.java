@@ -22,7 +22,7 @@ public class User {
     @OneToMany(mappedBy="user")
     @JsonIgnore
     List<Bid> placedBids;
-
+    
     public User(String username, String saltBase64, String hashedSaltedBase64) {
         this.username = username;
         this.salt = saltBase64;

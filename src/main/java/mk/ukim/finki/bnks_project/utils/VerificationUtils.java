@@ -29,8 +29,8 @@ public class VerificationUtils {
         sha256_HMAC.init(secret_key);
         byte [] bytehash = sha256_HMAC.doFinal(plainText.getBytes());
         String hash = Base64.getEncoder().encodeToString(bytehash);
-        System.out.println(signature);
-        System.out.println(hash);
+        System.out.println("F-sign: "+signature);
+        System.out.println("B-sign: "+hash);
         return hash.compareTo(signature) == 0;
     }
     public static boolean verify(String plainText, String signature, String key, String algorithm) {
