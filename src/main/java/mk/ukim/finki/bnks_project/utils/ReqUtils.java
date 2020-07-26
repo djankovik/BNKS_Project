@@ -1,4 +1,4 @@
-package mk.ukim.finki.bnks_project.service.utilities;
+package mk.ukim.finki.bnks_project.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class ReqUtils {
         for(String header:Collections.list(request.getHeaderNames())){
             map.put(header,request.getHeader(header));
         }
-        map.put("method",request.getMethod().toLowerCase());
+        map.put("method",request.getMethod().toUpperCase());
         map.put("routepath",request.getRequestURI().substring(request.getContextPath().length()).toLowerCase());
         System.out.println(map.toString());
         return map;
@@ -58,13 +58,14 @@ public class ReqUtils {
         return map;
     }
 
-    public static String getHashForText(String plainText){
+    private static String getHashForText(String plainText){
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         byte[] hash = digest.digest(plainText.getBytes(StandardCharsets.UTF_8));
         String encoded = Base64.getEncoder().encodeToString(hash);
         return encoded;
@@ -83,5 +84,16 @@ public class ReqUtils {
         }
         String hashed = getHashForText(bodyPlainText);
         return request.getHeader("digest").compareTo(hashed.replace("SHA256=","")) == 0;
+    }
+
+    public static String recreateSignature(String algorithm,String method,String path,String timestamp, String body){
+        Map<String,String> map = new HashMap<>();
+        map.put("METHOD",method);map.put("TIMESTAMP",timestamp);map.put("PATH",path);map.put("BODY",body);
+        String[] parts = algorithm.split("\\+");
+        StringBuilder sb=new StringBuilder();
+        for(String part:parts){
+            sb.append(map.get(part));
+        }
+        return sb.toString();
     }
 }
