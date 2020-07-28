@@ -99,13 +99,13 @@ public class SignedAuctionAPI {
             e.printStackTrace();
             response.sendError(401,"Invalid token username");
         }
-        if(!valid){
-            response.sendError(401,"JWT token not valid. User not authenticated.");
-        }
+        if(!valid)  response.sendError(401,"JWT token not valid. User not authenticated.");
+
         //Is the bid you want to post valid -> deal with this on front end
         //Bid in body
         ObjectMapper mapper = new ObjectMapper();
-        String bodyBid = mapper.writeValueAsString(bid).replace("value\":","value\":\"").replace("}","\"}");
+        String bodyBid = mapper.writeValueAsString(bid)
+                    .replace("value\":","value\":\"").replace("}","\"}");
         String method = request.getMethod().toUpperCase();
         String path = request.getRequestURI().substring(request.getContextPath().length());
         //Now validate signature
@@ -113,12 +113,10 @@ public class SignedAuctionAPI {
         String xAlgorithm = request.getHeader("x-algorithm");
         String xKeyID = request.getHeader("x-keyid");
         String xSignature = request.getHeader("x-signature");
-
         if(xTimestamp == null || xAlgorithm == null || xKeyID == null || xSignature == null){
             response.sendError(401,"The request doesn't contain all necessary signature headers");
         }
         String signatureString = ReqUtils.recreateSignature(xAlgorithm,method,path,xTimestamp,bodyBid);
-
         //get key from KDC
         String username = userService.getUsernameFromToken(token);
         try {
@@ -137,10 +135,8 @@ public class SignedAuctionAPI {
                 response.sendError(401,"Signature wasn't verified");
             }
         } catch (NoSuchSimpleKeyException e) {
-            e.printStackTrace();
             response.sendError(401,"KDC failed in retrieving key with id: "+xKeyID+" for user: "+username);
         } catch (Exception e) {
-            e.printStackTrace();
             response.sendError(401,"An error occurred while verifying signature.");
         }
         return null;

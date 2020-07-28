@@ -19,7 +19,6 @@ public class Bid {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long bid_id;
     Double value;
-
     @ManyToOne
     @JoinColumn(name = "auctionitem_id", referencedColumnName = "auction_id")
     AuctionItem auctionItem;
