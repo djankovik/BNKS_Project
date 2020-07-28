@@ -28,7 +28,6 @@ public class AuctionItem {
     Date dateClosing;
     Double auctionStartedAtAmmount;
     Double currentHighestBidAmmount;
-
     @OneToMany(mappedBy="auctionItem")
     @JsonIgnore
     List<Bid> placedBids;

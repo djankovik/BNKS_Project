@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface BidService {
     List<BidDto> getBidsForUser(String userId);
-    Bid saveBid(Bid b);
+    void saveBid(Bid b);
 }

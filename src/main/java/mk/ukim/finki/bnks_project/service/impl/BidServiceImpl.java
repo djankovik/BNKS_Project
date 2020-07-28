@@ -23,7 +23,7 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Bid saveBid(Bid b) {
-        return bidRepository.save(b);
+    public void saveBid(Bid b) {
+        bidRepository.save(b);
     }
 }

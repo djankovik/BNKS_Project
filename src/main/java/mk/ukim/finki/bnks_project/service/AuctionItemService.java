@@ -10,5 +10,5 @@ import java.util.List;
 public interface AuctionItemService {
     List<AuctionItem> getAllItems();
     AuctionItem findById(Long id) throws NoSuchAuctionItemException;
-    AuctionItem addBidToAuctionItem(AuctionItem au, Bid bid) throws NoSuchBidException, NoSuchAuctionItemException;
+    void addBidToAuctionItem(AuctionItem au, Bid bid) throws NoSuchBidException, NoSuchAuctionItemException;
 }
