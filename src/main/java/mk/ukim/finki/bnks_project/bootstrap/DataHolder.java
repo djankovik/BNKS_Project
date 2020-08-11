@@ -39,11 +39,11 @@ public class DataHolder {
         if (this.userRepository.count()==0 && this.bidRepository.count() == 0 && this.itemRepository.count() == 0) {
             users.add(new User("test1","OM5LdoG3rgljBrJmy/PZuA==","zGs4hXKKv5AqMryDN/AzeE8YSQNdYo5qVPnGZa7tGpsSVlalmAde9Udi1ZP9kCHIsRA8GTtzoyS/khg3P4WeKQ=="));
             users.add(new User("test2","y0/uGiDUMyue7Wh2yASvqQ==","UEiq2dJTWa0/P2+EkbB8CkCxBjHWA9W4Yd6EAxPZrSuNJ6XDePbYEJp2u3r7S2/nm6UpJMlf7UqpGMzbKovFzw=="));
-            users.add(new User("test3","uLaHBdZFvIOUI5/Zs51qIw==","TQaHQRmMyo8gV4bIfrY+DH57htWbWtvrw7OU7boPeqZ/Mbc7Yd9jIb+Jm0ZNk9/WF3RnyczcSQUUJPf9/RMZ7g=="));
+            users.add(new User("user1","kd3gQAZPUwdR7FY+NEf/vg==","ce4KpiXJNJh/l+6LDmD/fJ5nNtK7kMykQj6RO4zpzPa1JKSOj3faK9lXf7gle6KUdomrZkywkm2eo7/l5XKmqw=="));
             userRepository.saveAll(users);
             KDC.generateKey("test1");
             KDC.generateKey("test2");
-            KDC.generateKey("test3");
+            KDC.generateKey("user1");
 
             bids.add(new Bid(1, 700.0));
             bids.add(new Bid(2, 300.0));

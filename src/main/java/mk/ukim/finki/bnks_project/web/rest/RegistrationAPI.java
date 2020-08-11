@@ -69,7 +69,8 @@ public class RegistrationAPI {
                                                 HttpServletResponse response) throws IOException {
         //Validate JWT token
         String token = request.getHeader(JwtTokenUtil.header_name);
-        if(token == null) response.sendError(401,"No JWT token specified. User not authenticated.");
+        if(token == null)
+            response.sendError(401,"No JWT token specified. User not authenticated.");
         try {
             boolean valid = userService.validateToken(token);
             if(!valid) {
@@ -90,7 +91,8 @@ public class RegistrationAPI {
                                 HttpServletResponse response) throws IOException {
         //Validate JWT token
         String token = request.getHeader(JwtTokenUtil.header_name);
-        if(token == null) response.sendError(401,"No JWT token specified. User not authenticated.");
+        if(token == null)
+            response.sendError(401,"No JWT token specified. User not authenticated.");
         try {
             boolean valid = userService.validateToken(token);
             if(!valid) {

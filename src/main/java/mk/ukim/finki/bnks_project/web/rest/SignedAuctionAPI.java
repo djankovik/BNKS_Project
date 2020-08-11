@@ -45,7 +45,8 @@ public class SignedAuctionAPI {
                                                 HttpServletResponse response) throws IOException {
         //Validate JWT token
         String token = request.getHeader(JwtTokenUtil.header_name);
-        if(token == null) response.sendError(401,"No JWT token specified. User not authenticated.");
+        if(token == null)
+            response.sendError(401,"No JWT token specified. User not authenticated.");
         try {
         boolean valid = false;
         valid = userService.validateToken(token);
@@ -66,7 +67,8 @@ public class SignedAuctionAPI {
                                        HttpServletResponse response) throws IOException {
         //Validate JWT token
         String token = request.getHeader(JwtTokenUtil.header_name);
-        if(token == null) response.sendError(401,"No JWT token specified. User not authenticated.");
+        if(token == null)
+            response.sendError(401,"No JWT token specified. User not authenticated.");
         try {
             boolean valid = false;
             valid = userService.validateToken(token);
@@ -90,7 +92,8 @@ public class SignedAuctionAPI {
                          HttpServletResponse response) throws IOException {
         //Validate JWT token
         String token = request.getHeader(JwtTokenUtil.header_name);
-        if(token == null) response.sendError(401,"No JWT token specified. User not authenticated.");
+        if(token == null)
+            response.sendError(401,"No JWT token specified. User not authenticated.");
 
         boolean valid = false;
         try {
@@ -99,7 +102,8 @@ public class SignedAuctionAPI {
             e.printStackTrace();
             response.sendError(401,"Invalid token username");
         }
-        if(!valid)  response.sendError(401,"JWT token not valid. User not authenticated.");
+        if(!valid)
+            response.sendError(401,"JWT token not valid. User not authenticated.");
 
         //Is the bid you want to post valid -> deal with this on front end
         //Bid in body
